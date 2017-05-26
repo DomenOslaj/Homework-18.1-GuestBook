@@ -3,13 +3,20 @@
 {% block title %}GuestBook | Filtron{% endblock title%}
 
 {% block content %}
-    <form method="post">
+
+    <form id="input" method="post">
         <input type="text" name="name"><br>
         <input type="email" name="email"><br>
         <textarea name="message" placeholder="Leave your message here." rows="8" cols="80%"></textarea><br><br>
         <button type="submit">Submit</button>
 
     </form>
+
+    {% for message in messages %}
+        <p> {{ message.name }} {{ message.email }} {{ message.message }} {{ message.created }}</p>
+    {% endfor %}
+
+</body>
 
 
 {% endblock content %}

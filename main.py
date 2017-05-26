@@ -2,6 +2,8 @@
 import os
 import jinja2
 import webapp2
+from models import Message
+
 
 
 template_dir = os.path.join(os.path.dirname(__file__), "templates")
@@ -29,8 +31,20 @@ class BaseHandler(webapp2.RequestHandler):
 
 class MainHandler(BaseHandler):
     def get(self):
-        return self.render_template("hello.html")
+        return self.render_template("main.html")
+
+class GuestbookHandler(BaseHandler):
+    def post(self):
+        author = self.request.get("name")
+        email = self.request.get("email")
+        message = self.request.get("message")
+
+        user_details = Message(name=author, email=email, message=message)
+        user_details.put()                      #save to database
+
+        return self.redirect_to("guestbook-site")
 
 app = webapp2.WSGIApplication([
     webapp2.Route('/', MainHandler),
+    webapp2.Route("/guestbook", GuestbookHandler, name="guestbook-site"),
 ], debug=True)

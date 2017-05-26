@@ -2,9 +2,13 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>{% block title %}{% endblock title %}</title>
+        <link rel="stylesheet" href="/assets/css/style.css">
 </head>
 <body>
+
+    {% block content %}{% endblock content %}
+
 
 </body>
 </html>

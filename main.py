@@ -34,6 +34,14 @@ class MainHandler(BaseHandler):
         return self.render_template("main.html")
 
 class GuestbookHandler(BaseHandler):
+    def get(self):
+        messages = Message.query().fetch()
+
+        params = {"messages": messages}
+
+        return self.render_template("guestbook.html", params=params)
+
+
     def post(self):
         author = self.request.get("name")
         email = self.request.get("email")

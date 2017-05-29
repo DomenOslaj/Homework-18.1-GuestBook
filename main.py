@@ -47,6 +47,9 @@ class GuestbookHandler(BaseHandler):
         email = self.request.get("email")
         message = self.request.get("message")
 
+        if not author:
+            author = "Neznan"
+
         user_details = Message(name=author, email=email, message=message)
         user_details.put()                      #save to database
 

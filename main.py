@@ -50,7 +50,10 @@ class GuestbookHandler(BaseHandler):
         if not author:
             author = "Neznan"
 
-        user_details = Message(name=author, email=email, message=message)
+        if "<script>" in message:
+            return self.write("Can`t hack me ! :)")      #one way to gight JS injection
+
+        user_details = Message(name=author, email=email, message=message)     #other way is to write .... message=message.replace("<script>"," ")
         user_details.put()                      #save to database
 
         return self.redirect_to("guestbook-site")
